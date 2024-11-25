@@ -3,6 +3,7 @@ package com.aloha.board_project.service;
 import java.util.List;
 
 import com.aloha.board_project.dto.Board;
+import com.aloha.board_project.dto.Page;
 
 public interface BoardService {
 
@@ -15,5 +16,7 @@ public interface BoardService {
     public int update(Board board) throws Exception;
 
     public int delete(String id) throws Exception;
+
+    public List<Board> list(Page page) throws Exception;
     
 }

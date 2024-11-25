@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.aloha.board_project.dto.Board;
+import com.aloha.board_project.dto.Page;
 import com.aloha.board_project.mapper.BoardMapper;
 
 @Service
@@ -13,6 +14,7 @@ public class BoardServiceImpl implements BoardService {
 
     @Autowired
     private BoardMapper boardMapper;
+
 
     @Override
     public List<Board> list() {
@@ -44,5 +46,14 @@ public class BoardServiceImpl implements BoardService {
         int result = boardMapper.delete(id);
         return result;
     }
-    
+
+    @Override
+    public List<Board> list(Page page) throws Exception {
+ 
+        int total = boardMapper.count();
+        page.setTotal(total);
+
+        // 데이터 목록 가져오기
+        return boardMapper.list(page);
+    }
 }
