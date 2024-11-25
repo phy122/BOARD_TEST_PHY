@@ -1,6 +1,7 @@
 package com.aloha.board_project.dto;
 
 import java.util.Date;
+import java.util.UUID;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -18,5 +19,9 @@ public class Board {
     private String content;
     private Date createdAt;
     private Date updatedAt;
+
+    public Board(){
+        this.id = UUID.randomUUID().toString();
+    }
     
 }

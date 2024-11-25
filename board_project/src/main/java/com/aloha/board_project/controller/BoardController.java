@@ -10,12 +10,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.aloha.board_project.dto.Board;
 import com.aloha.board_project.service.BoardService;
+
+import lombok.extern.slf4j.Slf4j;
+
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 
 
-
+@Slf4j
 @Controller
 @RequestMapping("/board")
 public class BoardController {
@@ -30,11 +32,11 @@ public class BoardController {
         return "/board/list";
     }
 
-    @GetMapping("/select")
+    @GetMapping("/read")
     public String select(@RequestParam("id") String id, Model model) throws Exception {
         Board board = boardService.select(id);
         model.addAttribute("board", board);
-        return "/board/select";
+        return "/board/read";
     }
 
     @GetMapping("/insert")
@@ -45,13 +47,12 @@ public class BoardController {
 
     @PostMapping("/insert")
     public String insertPro(Board board) throws Exception {
+        log.info("board : " + board);
         int result = boardService.insert(board);
-        
-        if(result > 0){
+        if( result > 0 ) {
             return "redirect:/board/list";
         }
-        return "redirect:/board/insert";
-
+        return "redirect:/board/insert?error";  
     }
 
     @GetMapping("/update")
